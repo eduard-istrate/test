@@ -12,7 +12,7 @@ Practic fiecare componenta are in cadrul codului ei ceva de genul asta:
     <img src="./images/vuex1.PNG">
 </p>
 
-Acum sa scalam acest exercitiu de imaginatie la cateva zeci de componente, cum ar fi realistic sa exista intr-un proiect real. Modelul acest in care fiecare componenta cere datele in codul ei implica cateva probleme:
+Acum sa scalam acest exercitiu de imaginatie la cateva zeci de componente, un numar realistic pentru un proiect real. Modelul acest in care fiecare componenta cere datele in codul ei implica cateva probleme:
 
 * Este nementenabil. Daca vreau sa modific cum se realizeaza un call trebuie sa navighez pana la componenta corecta, ceea nu mereu e asa usor de identificat
 * Nu se poate realiza comunicarea de date intre componente. Daca componentele sunt _frati_ adica au aceasi componente parinte atunci e destul de greu sa transmiti date sau evenimente de la o componenta la alta
