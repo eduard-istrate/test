@@ -12,10 +12,10 @@ Practic fiecare componenta are in cadrul codului ei ceva de genul asta:
     <img src="./images/vuex1.PNG">
 </p>
 
-Acum sa scalam acest exercitiu de imaginatie la cateva zeci de componente, cum ar fi realistic sa exista intr-un proiect real. Modelul acest in care fiecare componenta cere datele in codul ei implica cateva probleme:
+Acum sa scalam acest exercitiu de imaginatie la cateva zeci de componente, cum ar fi realistic sa exista intr-un proiect real. Modelul acesta in care fiecare componenta cere datele in codul ei propriu implica cateva probleme:
 
 * Este nementenabil. Daca vreau sa modific cum se realizeaza un call trebuie sa navighez pana la componenta corecta, ceea nu mereu e asa usor de identificat
-* Nu se poate realiza comunicarea de date intre componente. Daca componentele sunt _frati_ adica au aceasi componente parinte atunci e destul de greu sa transmiti date sau evenimente de la o componenta la alta
+* Nu se poate realiza comunicarea de date intre componente. Daca componentele sunt _frati_ adica au aceasi componenta parinte atunci e destul de greu sa transmiti date sau evenimente de la o componenta la alta
 * Daca api-urile sunt comune (2 componente trag date de la acelasi api, de exemplu am 2 interfete care afiseaza acelasi set de date cu elemente vizuale diferite, tabele, carduri, liste etc) atunci voi da requesturi degeaba. Datele intr-o componenta exista doar cat timp exista si componenta respectiva. Daca eu navighez de pe o pagina ce contine o componenta cu date in ea, atunci **datele respective trebuiesc reinitializate cand navighez inapoi pe pagina. Altfel spus trebuie sa dau callul HTTP din nou**
 
 Aici este important de inteles faptul ca cererile HTTP **sunt cele mai costisitoare operatii pe care le poti face pe un site**. De ce? Pentru ca acestea nu mai depind de calculator, ci de viteza retelei, lucru pe care nu il poti controla. Dar ce poti controla este numarul acestora. Cu cat mai putine cu atat mai bine.
@@ -60,14 +60,14 @@ Principalul avantaj la Vuex esta ca pot sa imi structurez toate datele ca un arb
 
 Dar ce contine un modul? Aici intervine arhitectura. Haideti sa ne gandim la flowul normal al datelor noastre.
 
-Se declara variabilele ce tine datele -> datele sunt trase de pe retea -> datele sunt asignate in variabile -> variabilele sunt extrase in HTML si afisate in lista cu v-for
+Se declara variabilele ce tin datele **->** datele sunt trase de pe retea **->** datele sunt asignate in variabile **->** variabilele sunt extrase in HTML si afisate in lista cu v-for
 
 Pentru fiecare din acesti pasi avem in modul cate un fisier:
 
-* _states.js_ variabilele in care imi tin datele
-* _getters.js_ functii getter pentru a extrage variabilele. Nu este recomandat sa apelam direct stateu-urile cand avem nevoie de date ci sa folosim getteri.
-* _mutations.js_ mutatiile sunt modificari ce se aplica pe state-uri in mod **sincron**. De exemplu asignarea unei valori sau stergerea unui element dintr-o lista
-* _actions.js_ actiunile sunt modificari ce se aplica pe state-uri in mod **asincron** . Aici vor fi trecute in mare parte cererile HTTP de orice fel ar fi ele
+* _states.js_ **-** variabilele in care imi tin datele
+* _getters.js_ **-** functii getter(ce returneaza o variabila) pentru a extrage variabilele. Nu este recomandat sa apelam direct state-urile cand avem nevoie de date ci sa folosim getteri.
+* _mutations.js_ **-** mutatiile sunt modificari ce se aplica pe state-uri in mod **sincron**. De exemplu asignarea unei valori sau stergerea unui element dintr-o lista
+* _actions.js_ **-** actiunile sunt modificari ce se aplica pe state-uri in mod **asincron** . Aici vor fi trecute in mare parte cererile HTTP de orice fel ar fi ele
 
 De asemenea mai avem un _index.js_ ce importa datele din toate cele 4 fisiere si le uneste intr-un modul. 
 
@@ -103,13 +103,15 @@ Noi declaram acel state in functia de getter atunci cand o scriem, iar libraria 
 
 Mutatiile sunt functiile pe care de obicei le-am fi pus in _methods_ in componentele noastre. Dupa cum se observa avem un **setter**, adica o functie ce atribuie o valoare state-urilor noastre, si o functie de _delete_ in care sterg ultimul element din lista mea. Toate aceste modificari dupa cum se observa sunt sincrone, adica se executa instant. 
 
+_P.S. Va puteti gandi la setteri si getteri ca la citire si scriere. Getteri citesc informatia dintr-o variabila, iar setterii scriu informatia in variabila_
+
 **_actions.js_**
 
 <p align="center">
     <img src="./images/vuex10.PNG">
 </p>
 
-Aici am cererea HTTP care imi cere date. Daca as avea un request de tip POST de exemplu catre server tot aici ar fi pus. Dupa puteti observa este similar cu ce am fi pus in _created()_ in mod normal. Dar avem cateva diferente. In primul rand avem urmatoarea semnatura a functiei:
+Aici am cererea HTTP care imi cere date. Daca as avea un request de tip POST de exemplu catre server tot aici ar fi pus. Dupa cum puteti observa este similar cu ce am fi pus in _created()_ in mod normal. Dar avem cateva diferente. In primul rand avem urmatoarea semnatura a functiei:
 
 ```
     requestTestData: (context) => {/*...*/} 
@@ -240,7 +242,7 @@ Pana acum au fost destul de multe informatii, prezentate destul de izolat una de
 
 Daca lista este populata atunci v-forul va itera prin lista si va afisa ce e nevoie sa fie afisat. Daca este goala atunci nu se afisa nimic. Dar nu este o problema pentru ca pasul 2 se intampla simultan cu pasul 3. Daca lista este goala si actiunea este apelata atunci lista va aparea dupa cateva secunde, cand cererea http s-a terminat
 
-3. Se apeleaza in mounted() sau in created() actiunea
+3. Se apeleaza in mounted() sau in created() actiunea. Mounted si created servesc in mare parte aceeasi functie:
 
 <p align="center">
     <img src="./images/vuex15.PNG">
@@ -252,7 +254,7 @@ Daca lista este populata atunci v-forul va itera prin lista si va afisa ce e nev
     <img src="./images/vuex10.PNG">
 </p>
 
-In momentul acesta se intampla o verificare. Daca actiunea a mai fost apelata o data, sa zicem ca eram pe pagina cu componenta am plecat si ne-am reintors, astfel s-a apelat actiunea in _created()_ de 2 ori, atunci noi am trimis deja cererea HTTP. Si putem sa ne dam seama de acest lucru daca lista noastra de date este plina. Daca este plina atunci actiunea noastra nu va face nimic, iar getterii de la pasul 2 pur si simplu vor returna lista plina de date.
+In momentul acesta se intampla o verificare. Daca actiunea a mai fost apelata o data (sa zicem ca eram pe pagina cu componenta am plecat si ne-am reintors, astfel s-a apelat actiunea in mounted()_ de 2 ori) atunci noi am trimis deja cererea HTTP. Si putem sa ne dam seama de acest lucru daca lista noastra de date are elemente (daca nu are lungimea ei e 0). Daca este plina atunci actiunea noastra nu va face nimic, iar getterii de la pasul 2 pur si simplu vor returna lista plina de date.
 
 Daca lista este goala, atunci actiunea trimite cererea HTTP, iar daca primeste un raspuns pozitiv cheama _context.dispatch("setTestData", data)_ si se trece la pasul 5.
 
@@ -280,7 +282,7 @@ Se apeleaza _setTestData_ cu datele primite de actiunea din cererea HTTP. Se ia 
 
 Acest api [https://jsonplaceholder.typicode.com/photos](https://jsonplaceholder.typicode.com/photos) contine o lista de obiecte ce descriu niste poze. In aplicatia voastra aveti 3 pagini: una de exemplu, una numita _Titles_ si una numita _Images_. 
 
-Cerintele sunt urmatoarele:
+Creati un **NOU** modul in store care sa indeplineasca urmatoarele cerinte:
 
 * Pe pagina _Titles_ afisati intr-o lista titlurile imaginilor
 * Pe pagina _Images_ afisati intr-o lista imaginile in sine
