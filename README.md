@@ -9,7 +9,7 @@ Haideti sa descriem urmatorul scenariu: Avem o aplicatie cu 3 componente, iar fi
 Practic fiecare componenta are in cadrul codului ei ceva de genul asta:
 
 <p align="center">
-    <img src="./images/vuex1.png">
+    <img src="./images/vuex1.PNG">
 </p>
 
 Acum sa scalam acest exercitiu de imaginatie la cateva zeci de componente, cum ar fi realistic sa exista intr-un proiect real. Modelul acest in care fiecare componenta cere datele in codul ei implica cateva probleme:
@@ -21,7 +21,7 @@ Acum sa scalam acest exercitiu de imaginatie la cateva zeci de componente, cum a
 Aici este important de inteles faptul ca cererile HTTP **sunt cele mai costisitoare operatii pe care le poti face pe un site**. De ce? Pentru ca acestea nu mai depind de calculator, ci de viteza retelei, lucru pe care nu il poti controla. Dar ce poti controla este numarul acestora. Cu cat mai putine cu atat mai bine.
 
 <p align="center">
-    <img src="./images/vuex2.png">
+    <img src="./images/vuex2.PNG">
 </p>
 
 Aici intervin arhitecturile de tip _Flux_ introduse de Facebook. Acestea se rezuma la un simplu principiu:
@@ -31,19 +31,19 @@ Aici intervin arhitecturile de tip _Flux_ introduse de Facebook. Acestea se rezu
 Haideti sa contruim un exemplu de la 0. Sa presupunem ca avem o componenta care trage niste date de la un api si le afiseaza frumos intr-o lista:
 
 <p align="center">
-    <img src="./images/vuex3.png">
+    <img src="./images/vuex3.PNG">
 </p>
 
 Haideti sa adaugam si o functie ce sterge ultimul element din lista:
 
 <p align="center">
-    <img src="./images/vuex4.png">
+    <img src="./images/vuex4.PNG">
 </p>
 
 Acum avem o componenta cu cateva functionalitati complete. Dupa cum se observa componenta mea trage un set complet de date si afiseaza doar campurile _title_ ale obiectelor aduse de pe retea.
 
 <p align="center">
-    <img src="./images/vuex5.png">
+    <img src="./images/vuex5.PNG">
 </p>
 
 Ce ne-am face daca ar trebui sa folosim o alta componenta dar care afiseaza campurile _body_ ale obiectelor aduse de pe retea, de asemenea cu functionalitatea de a sterge un element.
@@ -53,7 +53,7 @@ In mare parte ar trebui sa facem copy paste la cod. Sa dam ALT request pentru ac
 Pentru situatii de genul acesta a fost creata arhitectura de tip _Flux_. Vuex este o librarie ce ne implementeaza principiile arhitecturii _Flux_. Daca ne uitam in proiect avem un nou folder numit _store_ in care avem un fisier _store.js_.
 
 <p align="center">
-    <img src="./images/vuex6.png">
+    <img src="./images/vuex6.PNG">
 </p>
 
 Principalul avantaj la Vuex esta ca pot sa imi structurez toate datele ca un arbore imens. Iar fiecare ramura este reprezentata de cate un **modul**. Un modul corespunde cu cate o sectiune din datele din aplicatie. De exemplu pentru api-ul _/posts_ as face un modul, iar pentur api-ul _/images_ as face **alt modul**.
@@ -76,7 +76,7 @@ Haideti sa le luam pe rand.
 **_states.js_**
 
 <p align="center">
-    <img src="./images/vuex7.png">
+    <img src="./images/vuex7.PNG">
 </p>
 
 Observam ca se exporta un obiect cu toate variabilele pe care le vom folosi pentru acest set de date. Lista _testData_ este variabila pe care o vom apela mereu de acum cand vrem sa lucram cu datele de pe API. **Faptul ca acum variabila nu mai este declarata in interiorul componentei inseamna ca exista independent de componenta. Altfel spus datele din aceasta variabila vor exista chiar daca componentele ce folosesc variabila se distrug.** _loadingTestData_ este un boolean folosit pentru a marca daca datele inca se incarca. Acesta este folosit pentru spinnerul din componenta pe care il vom adauga.
@@ -84,7 +84,7 @@ Observam ca se exporta un obiect cu toate variabilele pe care le vom folosi pent
 **_getters.js_**
 
 <p align="center">
-    <img src="./images/vuex8.png">
+    <img src="./images/vuex8.PNG">
 </p>
 
 Observam ca getterii sunt doar functii ce returneaza variabilele declarate in _states.js_. De remarcat este parametrul lor (_state_):
@@ -98,7 +98,7 @@ Noi declaram acel state in functia de getter atunci cand o scriem, iar libraria 
 **_mutations.js_**
 
 <p align="center">
-    <img src="./images/vuex9.png">
+    <img src="./images/vuex9.PNG">
 </p>
 
 Mutatiile sunt functiile pe care de obicei le-am fi pus in _methods_ in componentele noastre. Dupa cum se observa avem un **setter**, adica o functie ce atribuie o valoare state-urilor noastre, si o functie de _delete_ in care sterg ultimul element din lista mea. Toate aceste modificari dupa cum se observa sunt sincrone, adica se executa instant. 
@@ -106,7 +106,7 @@ Mutatiile sunt functiile pe care de obicei le-am fi pus in _methods_ in componen
 **_actions.js_**
 
 <p align="center">
-    <img src="./images/vuex10.png">
+    <img src="./images/vuex10.PNG">
 </p>
 
 Aici am cererea HTTP care imi cere date. Daca as avea un request de tip POST de exemplu catre server tot aici ar fi pus. Dupa puteti observa este similar cu ce am fi pus in _created()_ in mod normal. Dar avem cateva diferente. In primul rand avem urmatoarea semnatura a functiei:
@@ -157,13 +157,13 @@ Vuex ne pune la dispozitie niste functii ajutatoare. Daca ne uitam in VuexExampl
 
 
 <p align="center">
-    <img src="./images/vuex11.png">
+    <img src="./images/vuex11.PNG">
 </p>
 
 Aceste functii ne extrag functiile de care avem nevoie din modulul nostru de store. Haideti sa vedem cum se utilizeaza. Vom incepe cu geterii:
 
 <p align="center">
-    <img src="./images/vuex12.png">
+    <img src="./images/vuex12.PNG">
 </p>
 
 Sa incepem cu intrebarea evidenta: ce sunt alea 3 puncte. Daca avem:
@@ -199,7 +199,7 @@ Cele 3 puncte se numesc operator _spread_ pentru ca distribuie proprietatile unu
 Ce se intampla in cazul nostru? Se extrag functiile din fisierul _getters.js_ din modulul _testModule_ si se introduc in componenta in obiectul **computed**. Ce inseamna asta mai pe scurt? Inseamna ca eu pot sa folosesc functiile acelea ca si cum ar fi scrise in componenta. O proprietate a functiilor scrise in _computed_ e ca pot sa le folosesc ca variabile:
 
 <p align="center">
-    <img src="./images/vuex13.png">
+    <img src="./images/vuex13.PNG">
 </p>
 
 In mod normal in loc de _getTestData_ in v-for am fi folosit o lista declarata in data(). Dar acum putem folosi acest getter, si folosim direct datele din store.
@@ -207,13 +207,13 @@ In mod normal in loc de _getTestData_ in v-for am fi folosit o lista declarata i
 Mai trebuie sa ne extragem ceva, si anume actiunea ce cheama datele. Noi am scris o functie in _actions.js_ dar nu am apelat-o nicaeri. Mai intai trebuie sa o introducem in componenta similar cum am facut cu getterii, doar ca de data asta in **methods**.
 
 <p align="center">
-    <img src="./images/vuex14.png">
+    <img src="./images/vuex14.PNG">
 </p>
 
 Dupa cum am spus acum putem folosi actiunea ca si cum ar fi scrisa la noi in componenta. Asa ca o vom apela exact unde am apela o cerere HTTP de genul in mod normal: in _created()_.
 
 <p align="center">
-    <img src="./images/vuex15.png">
+    <img src="./images/vuex15.PNG">
 </p>
 
 Pana acum au fost destul de multe informatii, prezentate destul de izolat una de alta, asa ca haideti sa reluam **tot _fluxul_ componentei de la inceput pana la sfarsit**.
@@ -221,21 +221,21 @@ Pana acum au fost destul de multe informatii, prezentate destul de izolat una de
 1. In componenta in care dorim sa folosim datele se injecteaza metodele din modulul din store 
 
 <p align="center">
-    <img src="./images/vuex11.png">
+    <img src="./images/vuex11.PNG">
 </p>
 
 <p align="center">
-    <img src="./images/vuex12.png">
+    <img src="./images/vuex12.PNG">
 </p>
 
 <p align="center">
-    <img src="./images/vuex14.png">
+    <img src="./images/vuex14.PNG">
 </p>
 
 2. Se apeleaza getterii unde avem nevoie de date:
 
 <p align="center">
-    <img src="./images/vuex13.png">
+    <img src="./images/vuex13.PNG">
 </p>
 
 Daca lista este populata atunci v-forul va itera prin lista si va afisa ce e nevoie sa fie afisat. Daca este goala atunci nu se afisa nimic. Dar nu este o problema pentru ca pasul 2 se intampla simultan cu pasul 3. Daca lista este goala si actiunea este apelata atunci lista va aparea dupa cateva secunde, cand cererea http s-a terminat
@@ -243,13 +243,13 @@ Daca lista este populata atunci v-forul va itera prin lista si va afisa ce e nev
 3. Se apeleaza in mounted() sau in created() actiunea
 
 <p align="center">
-    <img src="./images/vuex15.png">
+    <img src="./images/vuex15.PNG">
 </p>
 
 4. In momentul acesta operatiile se muta din componenta in store, si fluxul continua in _actions.js_ in _requestTestData()_
 
 <p align="center">
-    <img src="./images/vuex10.png">
+    <img src="./images/vuex10.PNG">
 </p>
 
 In momentul acesta se intampla o verificare. Daca actiunea a mai fost apelata o data, sa zicem ca eram pe pagina cu componenta am plecat si ne-am reintors, astfel s-a apelat actiunea in _created()_ de 2 ori, atunci noi am trimis deja cererea HTTP. Si putem sa ne dam seama de acest lucru daca lista noastra de date este plina. Daca este plina atunci actiunea noastra nu va face nimic, iar getterii de la pasul 2 pur si simplu vor returna lista plina de date.
@@ -259,7 +259,7 @@ Daca lista este goala, atunci actiunea trimite cererea HTTP, iar daca primeste u
 5. (nu se ajunge aici daca cererea HTTP s-a mai dat o data) Am ajuns in _mutations.js_ 
 
 <p align="center">
-    <img src="./images/vuex9.png">
+    <img src="./images/vuex9.PNG">
 </p>
 
 Se apeleaza _setTestData_ cu datele primite de actiunea din cererea HTTP. Se ia state-ul din _state.js_ si se populeaza cu informatiile primite de la actiune. 
@@ -269,11 +269,11 @@ Se apeleaza _setTestData_ cu datele primite de actiunea din cererea HTTP. Se ia 
 7. (se intampla imediat dupa pasul 2 daca cererea HTTP s-a mai dat o data) v-for-ul este randat cu informatiile trase din API
 
 <p align="center">
-    <img src="./images/vuex13.png">
+    <img src="./images/vuex13.PNG">
 </p>
 
 <p align="center">
-    <img src="./images/vuex17.png">
+    <img src="./images/vuex17.PNG">
 </p>
 
 # Task
